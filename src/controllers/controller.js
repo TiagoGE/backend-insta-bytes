@@ -45,13 +45,14 @@ export async function uploadImage(req, res) {
 
 export async function updatePost(req, res) {
     const id = req.params.id;
-    const url = `http://localhost:3000/${id}.png`
+    // Determine the URL dynamically
+    const baseUrl = req.protocol + '://' + req.get('host');
     try {
         const imgBuffer = fs.readFileSync(`uploads/${id}.png`)
         const description = await generateDescriptionAI(imgBuffer)
 
         const post = {
-            url: url,
+            url: `${baseUrl}/${id}.png`,
             description: description,
             alt: req.body.alt
         }
