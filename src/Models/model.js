@@ -21,3 +21,9 @@ export async function updatenewPost(id, newPost) {
     const objID = ObjectId.createFromHexString(id);
     return collection.updateOne({ _id: new ObjectId(objID) }, { $set: newPost });
 }
+
+// export async function deleteAllPosts(){
+//     const db = database.db('Imersao-instabytes');
+//     const collection = db.collection('posts');
+//     return collection.deleteMany({});
+// }

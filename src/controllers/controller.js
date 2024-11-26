@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { getAllPosts, createPost, updatenewPost } from '../Models/model.js'
+import { getAllPosts, createPost, updatenewPost, /*deleteAllPosts*/ } from '../Models/model.js'
 import generateDescriptionAI from '../services/geminiService.js';
 import { error } from 'console';
 
@@ -45,13 +45,13 @@ export async function uploadImage(req, res) {
 
 export async function updatePost(req, res) {
     const id = req.params.id;
-    const urlImage = `http://localhost:3000/${id}.png`
+    const url = `http://localhost:3000/${id}.png`
     try {
         const imgBuffer = fs.readFileSync(`uploads/${id}.png`)
         const description = await generateDescriptionAI(imgBuffer)
 
         const post = {
-            url: urlImage,
+            url: url,
             description: description,
             alt: req.body.alt
         }
@@ -63,3 +63,12 @@ export async function updatePost(req, res) {
         res.status(500).json({"Erro":"Falha na requisição"});
     }
 }
+
+// export async function deleteAll(req, res) {
+//     try {
+//         await deleteAllPosts(); // Call the model function to delete all posts
+//         res.status(200).json({ message: "All posts deleted successfully" });
+//     } catch (error) {
+//         res.status(500).json({ message: "Error deleting posts", error });
+//     }
+// }
