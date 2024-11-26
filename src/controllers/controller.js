@@ -28,7 +28,7 @@ export async function addPosts(req, res) {
 export async function uploadImage(req, res) {
     const novoPost = {
         description: "",
-        imgUrl: req.file.originalname,
+        url: req.file.originalname,
         alt: ""
     };
 
